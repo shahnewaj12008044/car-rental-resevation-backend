@@ -10,11 +10,24 @@ const signUp = catchAsync(async(req,res)=>{
     sendResponse(res, {
         status: httpStatus.OK,
         success: true,
-        message: 'admin is created successfully',
+        message: `${result?.role} is created successfully`,
         data: result,
       });
 })
 
+const signIn = catchAsync(async(req,res)=>{
+    const result = await AuthServices.signInIntoDB(req.body);
+
+    sendResponse(res, {
+        status: httpStatus.OK,
+        success: true,
+        message: ` is created successfully`,
+        data: null,
+      });
+})
+
+
+
 export const AuthoController = {
-    signUp
+    signUp,signIn
 }

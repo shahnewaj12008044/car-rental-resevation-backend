@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 //router
-app.use('/api/v1', router)
+app.use('/api', router)
 
 app.get("/", (req: Request, res: Response) => {
   // const a= 10;
