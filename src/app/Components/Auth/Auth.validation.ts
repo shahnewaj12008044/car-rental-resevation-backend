@@ -8,5 +8,6 @@ const singInValidationSchema = z.object({
 })
 
 export const AuthValidations = {
-    singInValidationSchema
+    singInValidationSchema,
+    
 }
