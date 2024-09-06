@@ -1,3 +1,4 @@
+import { ROLE_OBJ } from "./user.constant";
 
 
 
@@ -9,3 +10,6 @@ export type TUser = {
     phone:string;
     address:string;
 }
+
+export type TRole = keyof typeof ROLE_OBJ;
+

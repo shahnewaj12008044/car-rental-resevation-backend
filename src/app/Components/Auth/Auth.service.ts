@@ -38,7 +38,8 @@ const signInIntoDB = async (payload: TSingin) =>{
 if(!isPasswordMatched){
     throw new AppError(httpStatus.FORBIDDEN,"Wrong Password!!!")
 }
-
+//clearing the password field
+user.password = "";
 //generating token jwt web token
 
 const jwtPayload = {
@@ -49,7 +50,11 @@ const token = jwt.sign({
     jwtPayload
   }, config.jwt_access_secret as string, { expiresIn: config.jwt_access_expires as string });
 
-  return {user, token}
+// Add "Bearer " at the beginning of the token
+const bearerToken = `Bearer ${token}`;
+console.log(bearerToken)
+
+return { user, token: bearerToken };
 }
 
 

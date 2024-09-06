@@ -20,7 +20,7 @@ const signIn = catchAsync(async (req, res) => {
   sendResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: ` is created successfully`,
+    message: `${result?.user?.role} is logged successfully`,
     data: result?.user,
     token: result?.token,
   });
