@@ -25,7 +25,7 @@ const signUpIntoDB = async( payload:TUser) =>{
 //sign in 
 const signInIntoDB = async (payload: TSingin) =>{
  const user = await User.findOne({email:payload?.email}).select('+password')
- console.log(user)
+//  console.log(user)
 
  //checking the user is valid or not
  if(!user){
@@ -49,11 +49,11 @@ const token = jwt.sign({
     jwtPayload
   }, config.jwt_access_secret as string, { expiresIn: config.jwt_access_expires as string });
 
-
+  return {user, token}
 }
 
 
 export const AuthServices = {
     signUpIntoDB,
-    signInIntoDB
+    signInIntoDB,
 }
