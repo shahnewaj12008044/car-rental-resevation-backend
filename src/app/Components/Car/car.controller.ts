@@ -50,6 +50,7 @@ const updateCar = catchAsync(async(req, res) =>{
         data: result,
       });
 })
+
 const deleteCar = catchAsync(async(req, res) =>{
     const {id} = req.params;
     const result = await CarServices.deleteCarFromDB(id)

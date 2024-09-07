@@ -33,6 +33,15 @@ carShema.pre('find',function(next){
 //   next()
 // })
 
+carShema.pre('find', async function(next){
+  this.find({status:{$ne:"unavailable"}})
+  next()
+})
+carShema.pre('findOne', async function(next){
+  this.find({status:{$ne:"unavailable"}})
+  next()
+})
+
 //preventing delete a car which is already deleted:
 carShema.pre('findOneAndUpdate',async function(next) {
   const query = this.getQuery();

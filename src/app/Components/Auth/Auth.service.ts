@@ -42,13 +42,14 @@ if(!isPasswordMatched){
 user.password = "";
 //generating token jwt web token
 
+console.log(user.id)
 const jwtPayload = {
-    email:user?.email,
+    userId:user?.id,
     role:user?.role,
 }
-const token = jwt.sign({
+const token = jwt.sign(
     jwtPayload
-  }, config.jwt_access_secret as string, { expiresIn: config.jwt_access_expires as string });
+  , config.jwt_access_secret as string, { expiresIn: config.jwt_access_expires as string });
 
 // Add "Bearer " at the beginning of the token
 const bearerToken = `Bearer ${token}`;

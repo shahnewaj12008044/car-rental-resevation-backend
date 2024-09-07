@@ -15,7 +15,8 @@ router.get('/:id',CarController.getSingleCar)
 
 router.put('/:id',auth(ROLE_OBJ.admin),validationRequest(CarValidations.updateCarValidationSchema),CarController.updateCar)
 
-router.delete('/:id',auth(ROLE_OBJ.admin),CarController.deleteCar)
+router.delete('/:id',auth(ROLE_OBJ.admin),CarController.deleteCar);
+
 
 
 

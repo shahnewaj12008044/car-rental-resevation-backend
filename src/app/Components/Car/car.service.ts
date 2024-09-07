@@ -1,5 +1,8 @@
+import AppError from "../../Error/AppError";
 import { TCar } from "./car.interface";
 import { Car } from "./car.model";
+import httpStatus from 'http-status-codes';
+
 
 const createCarIntoDB = async (payload: TCar) => {
   const result = await Car.create(payload);
@@ -12,7 +15,12 @@ const getAllCarsFromDB = async() =>{
 }
 
 const getSingleCarFromDB = async(id:string) =>{
-  const result  = await Car.findById(id)
+  const result  = await Car.findById(id);
+  //if the car is not found or deleted
+  //didnt do it in middleware
+  if(!result || result?.isDeleted ){
+    throw new AppError(httpStatus.NOT_FOUND,"The car is not found!")
+  }
   return result;
 }
 
