@@ -33,14 +33,16 @@ carShema.pre('find',function(next){
 //   next()
 // })
 
-carShema.pre('find', async function(next){
-  this.find({status:{$ne:"unavailable"}})
-  next()
-})
-carShema.pre('findOne', async function(next){
-  this.find({status:{$ne:"unavailable"}})
-  next()
-})
+//conflicted with the car booking these will be done by statics
+
+// carShema.pre('find', async function(next){
+//   this.find({status:{$ne:"unavailable"}})
+//   next()
+// })
+// carShema.pre('findOne', async function(next){
+//   this.find({status:{$ne:"unavailable"}})
+//   next()
+// })
 
 //preventing delete a car which is already deleted:
 carShema.pre('findOneAndUpdate',async function(next) {
@@ -48,7 +50,7 @@ carShema.pre('findOneAndUpdate',async function(next) {
   // console.log(query)
   const isCar = await this.model.findOne(query);
   // console.log(isCar)
-  if(isCar || isCar?.isDeleted){
+  if(!isCar || isCar?.isDeleted){
     throw new AppError(httpStatus.FORBIDDEN, "This car is already deleted or doesn't exist!")
   }
   next()

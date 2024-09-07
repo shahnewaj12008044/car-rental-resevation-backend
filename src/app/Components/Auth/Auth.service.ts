@@ -42,7 +42,7 @@ if(!isPasswordMatched){
 user.password = "";
 //generating token jwt web token
 
-console.log(user.id)
+// console.log(user.id)
 const jwtPayload = {
     userId:user?.id,
     role:user?.role,

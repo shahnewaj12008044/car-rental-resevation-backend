@@ -18,8 +18,8 @@ const getSingleCarFromDB = async(id:string) =>{
   const result  = await Car.findById(id);
   //if the car is not found or deleted
   //didnt do it in middleware
-  if(!result || result?.isDeleted ){
-    throw new AppError(httpStatus.NOT_FOUND,"The car is not found!")
+  if(!result || result?.isDeleted || result?.status === "unavailable" ){
+    throw new AppError(httpStatus.NOT_FOUND,"The car is not is not available right now")
   }
   return result;
 }
