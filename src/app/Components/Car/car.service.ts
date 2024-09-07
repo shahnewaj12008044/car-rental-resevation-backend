@@ -15,21 +15,39 @@ const getAllCarsFromDB = async() =>{
 }
 
 const getSingleCarFromDB = async(id:string) =>{
+  //checking the car is deleted or unavailable
+  const isCarDeletedOrAvailble = await Car.isCarDeletedOrAvailable(id);
+ 
+  if(isCarDeletedOrAvailble){
+    throw new AppError(httpStatus.FORBIDDEN,"this car is not available right now")
+  }
+
   const result  = await Car.findById(id);
   //if the car is not found or deleted
   //didnt do it in middleware
-  if(!result || result?.isDeleted || result?.status === "unavailable" ){
-    throw new AppError(httpStatus.NOT_FOUND,"The car is not is not available right now")
-  }
+ 
   return result;
 }
 
 const updateCarIntoDB = async(id:string,payload:Partial<TCar>)=>{
+  //checking the car is deleted or unavailable
+  const isCarDeletedOrAvailble = await Car.isCarDeletedOrAvailable(id);
+ 
+  if(isCarDeletedOrAvailble){
+    throw new AppError(httpStatus.FORBIDDEN,"this car is not available right now")
+  }
+
   const result = await Car.findByIdAndUpdate(id,payload,{new:true});
   return result;
 }
 
 const deleteCarFromDB = async(id:string) =>{
+  const isCarDeletedOrAvailble = await Car.isCarDeletedOrAvailable(id);
+ 
+  if(isCarDeletedOrAvailble){
+    throw new AppError(httpStatus.FORBIDDEN,"this car is already deleted or unavailable right now!!")
+  }
+
   const result = await Car.findByIdAndUpdate(id,{isDeleted:true},{new:true})
   return result;
 }

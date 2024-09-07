@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { TCar } from "./car.interface";
+import { CarModel, TCar } from "./car.interface";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status-codes";
 
@@ -39,22 +39,23 @@ carShema.pre('find',function(next){
 //   this.find({status:{$ne:"unavailable"}})
 //   next()
 // })
+
 // carShema.pre('findOne', async function(next){
 //   this.find({status:{$ne:"unavailable"}})
 //   next()
 // })
 
-//preventing delete a car which is already deleted:
-carShema.pre('findOneAndUpdate',async function(next) {
-  const query = this.getQuery();
-  // console.log(query)
-  const isCar = await this.model.findOne(query);
-  // console.log(isCar)
-  if(!isCar || isCar?.isDeleted){
-    throw new AppError(httpStatus.FORBIDDEN, "This car is already deleted or doesn't exist!")
+carShema.statics.isCarDeletedOrAvailable = async function(id:string){
+  const car = await this.findById(id);
+  if(!car){
+    return false
   }
-  next()
-})
+  return car.status === "unavailable" || car.isDeleted;
+}
 
 
-export const Car = model<TCar>("Car", carShema);
+
+
+
+
+export const Car = model<TCar, CarModel>("Car", carShema);

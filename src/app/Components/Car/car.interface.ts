@@ -1,5 +1,6 @@
+import { Model } from "mongoose";
 
-export type TCar = {
+export interface TCar{
     name:string;
     description:string;
     color:string;
@@ -8,5 +9,10 @@ export type TCar = {
     features:string[];
     pricePerHour:number;
     isDeleted: boolean;
+}
+
+export interface CarModel extends Model<TCar>{
+    isCarDeletedOrAvailable(id:string):Promise<boolean>,
+    
 }
 
