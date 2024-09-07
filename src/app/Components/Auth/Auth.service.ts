@@ -52,7 +52,7 @@ const token = jwt.sign({
 
 // Add "Bearer " at the beginning of the token
 const bearerToken = `Bearer ${token}`;
-console.log(bearerToken)
+// console.log(bearerToken)
 
 return { user, token: bearerToken };
 }

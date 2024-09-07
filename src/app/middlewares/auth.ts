@@ -13,7 +13,7 @@ const auth = (...requiredRoles: TRole[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
       const token = req.headers.authorization?.substring(7);
       //checking if the token is given or not
-      console.log(token)
+      // console.log(token)
       
       if (!token) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
@@ -27,7 +27,7 @@ const auth = (...requiredRoles: TRole[]) => {
       ) as JwtPayload;
   
       const { email, role } = decoded.jwtPayload;
-      console.log(decoded)
+      // console.log(decoded)
   
       const user = await User.findOne({email})
   
