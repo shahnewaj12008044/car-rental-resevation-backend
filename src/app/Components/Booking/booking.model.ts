@@ -6,7 +6,6 @@ const bookingSchema = new Schema<TBooking>(
     date: { type: String, required: true },
     user: {
       type: Schema.Types.ObjectId,
-      unique: true,
       ref: "User",
     },
     car: {

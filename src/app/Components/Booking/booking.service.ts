@@ -9,11 +9,11 @@ import { startSession } from "mongoose";
 
 
  const createBookingIntoDB = async(userData:JwtPayload,payload:TCarPayload) =>{
-  //  console.log(userData,payload)
+
    const bookingData:Partial<TBooking> = {}
    //checking if the carId is valid or not
    const car = await Car.findById(payload?.carId)
-  //  console.log(car)
+
   
    if(!car || car?.isDeleted || car?.status === "unavailable"){
     throw new AppError(httpStatus.NOT_FOUND,"The car is not available right now")
@@ -29,20 +29,17 @@ import { startSession } from "mongoose";
     if(!createBooking){
       throw new AppError(httpStatus.FORBIDDEN,"Failed to create Booking!")
     }
-    // console.log(createBooking)
     //changing the status of car
     const carStatus = await Car.findByIdAndUpdate({_id:car?._id},{status:"unavailable"},{session,new:true})
-    // console.log(carStatus)
+
     if(!carStatus){
       throw new AppError(httpStatus.BAD_REQUEST,"Failed to create Booking")
     }
-    console.log(createBooking[0].id)
     
 
     await session.commitTransaction();
     await session.endSession();
     const result = await Booking.findById(createBooking[0].id).populate('user').populate('car')
-    console.log(result)
     
     return result;
 
@@ -57,6 +54,27 @@ import { startSession } from "mongoose";
 
  }
 
+ const getAllBookingsFromDB = async(query:Record<string,unknown>) =>{
+  // console.log(query)
+  let queryTerm = {}
+  const {carId, date} = query;
+  if (carId && date) {
+    queryTerm = { $and: [{ car: carId }, { date: date }] }
+}
+// console.log(queryTerm)
+
+  const result = await Booking.find(queryTerm).populate('car').populate('user')
+  return result;
+ }
+
+ const getUsersBookingFromDB = async(id:string) =>{
+  const result = await Booking.find({user:id}).populate('car').populate('user');
+  return result;
+ }
+
+
 export const BookingService = {
     createBookingIntoDB,
+    getAllBookingsFromDB,
+    getUsersBookingFromDB,
  }
