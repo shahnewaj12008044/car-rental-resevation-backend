@@ -6,11 +6,16 @@ export type TBooking = {
   car: Types.ObjectId;
   startTime: string;
   endTime: string;
-  totalCost: Number;
+  totalCost: number;
 };
 
 export type TCarPayload = {
   carId: string;
   date: string;
   startTime: string;
+}
+
+export type TReturnPayload = {
+    bookingId : string;
+    endTime : string;
 }

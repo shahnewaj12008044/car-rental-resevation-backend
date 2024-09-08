@@ -13,9 +13,18 @@ const createBookingValidationSchema = z.object({
     })
 })
 
+const returnBookingValidation = z.object({
+    body:z.object({
+        bookingId:z.string(),
+        endTime: z.string().regex(time24HourFormat, {
+            message: "Invalid time format. Please use HH:MM in 24-hour format."
+          }),
+    })
+})
 
 
 
 export const BookingValidation = {
     createBookingValidationSchema,
+    returnBookingValidation,
 }

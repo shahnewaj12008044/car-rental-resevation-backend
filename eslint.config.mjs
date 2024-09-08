@@ -11,7 +11,7 @@ export default [
         process: "readonly",
       },
     },
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+   
     rules:{
       "@typescript-eslint/no-unused-vars": "error",
       "no-unused-expressions":"error",

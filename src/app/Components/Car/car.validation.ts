@@ -1,4 +1,4 @@
-import { z, ZodLazy } from "zod";
+import { z } from "zod";
 
 const createCarValidationSchema = z.object({
    body:z.object({

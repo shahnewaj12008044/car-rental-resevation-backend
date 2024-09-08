@@ -46,9 +46,23 @@ const getUsersBooking = catchAsync(async(req, res) =>{
       });
 })
 
+const returACar = catchAsync(async(req, res) =>{
+    // console.log(req.user)
+    // console.log(req.query);
+    const result = await BookingService.returnACarIntoDB(req.body)
+    
+    sendResponse(res, {
+        status: httpStatus.OK,
+        success: true,
+        message: "Car returned successfully",
+        data: result,
+      });
+})
+
 
 export const BookingController = {
     createBooking,
     getAllBooking,
     getUsersBooking,
+    returACar,
 }
