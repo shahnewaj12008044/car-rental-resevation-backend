@@ -615,9 +615,15 @@ Ensures that only user  and admin can access their own accessible routes.
 
 ```json
 {
-  "success": false,
-  "statusCode": 401,
-  "message": "You have no access to this route",
+    "success": false,
+    "message": "You are not authorized!",
+    "errorMessages": [
+        {
+            "path": "",
+            "message": "You are not authorized!"
+        }
+    ],
+    "stack": "Error: You are not authorized!\n    at H:\\sakib code\\web_devolopment course 2.0\\Level 2\\Mission - 3(Be a Backend Brainiac)\\My code\\Assignment -3\\Car-rental-reservation\\src\\app\\middlewares\\auth.ts:42:13\n    at Generator.next (<anonymous>)\n    at fulfilled (H:\\sakib code\\web_devolopment course 2.0\\Level 2\\Mission - 3(Be a Backend Brainiac)\\My code\\Assignment -3\\Car-rental-reservation\\src\\app\\middlewares\\auth.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
 }
 ```
 
