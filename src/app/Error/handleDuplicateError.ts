@@ -8,15 +8,17 @@ const handleDuplicateError = (
    // Extract value within double quotes using regex
    const match = err.message.match(/"([^"]*)"/);
 
+
    // The extracted value will be in the first capturing group
-   const extractedMessage = match && match[1];
+
+   
  
   const errorSources: TErrorSources = [
-    { path: '', message:`${extractedMessage} is already exist`  },
+    { path: '', message:`${match!.input}`  },
   ];
   return {
     statusCode,
-    message: 'Duplicate data error',
+    message: (match!.input) as string,
     errorSources,
   };
 };

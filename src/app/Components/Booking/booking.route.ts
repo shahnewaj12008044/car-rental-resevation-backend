@@ -9,7 +9,7 @@ import { BookingController } from "./booking.controller";
 const router = Router()
 
 router.post('/',auth(ROLE_OBJ.user),validationRequest(BookingValidation.createBookingValidationSchema), BookingController.createBooking)
-router.get('/',BookingController.getAllBooking)
+router.get('/',auth(ROLE_OBJ.admin),BookingController.getAllBooking)
 router.get('/my-bookings',auth(ROLE_OBJ.user),BookingController.getUsersBooking)
 
 router.put('/return',auth(ROLE_OBJ.admin),validationRequest(BookingValidation.returnBookingValidation),BookingController.returACar)

@@ -11,8 +11,11 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
+
 //router
 app.use('/api', router)
+
+//no data found
 
 app.get("/", (req: Request, res: Response) => {
   // const a= 10;
@@ -26,6 +29,7 @@ app.use(globalErrorHandler);
 
 //not found
 app.use(notFound);
+
 
 
 export default app;

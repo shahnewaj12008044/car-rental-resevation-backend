@@ -4,6 +4,7 @@ import sendResponse from "../../utils/sendResponse"
 
 import httpStatus from "http-status-codes";
 import { BookingService } from "./booking.service";
+import NoDataFound from "../../utils/noDataFound";
 
 const createBooking = catchAsync(async(req, res) =>{
    
@@ -22,7 +23,9 @@ const getAllBooking = catchAsync(async(req, res) =>{
     // console.log(req.user)
     // console.log(req.query);
     const result = await BookingService.getAllBookingsFromDB(req.query)
-    
+    if(!result || result.length === 0){
+        NoDataFound(res)
+    }
     sendResponse(res, {
         status: httpStatus.OK,
         success: true,
@@ -37,7 +40,9 @@ const getUsersBooking = catchAsync(async(req, res) =>{
     // console.log(userId)
     
     const result = await BookingService.getUsersBookingFromDB(userId)
-    
+    if(!result || result.length === 0){
+        NoDataFound(res)
+    }
     sendResponse(res, {
         status: httpStatus.OK,
         success: true,
