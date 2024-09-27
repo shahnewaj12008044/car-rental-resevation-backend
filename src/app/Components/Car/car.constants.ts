@@ -1,0 +1,1 @@
+export const CarSearchableFields = ['carType','location','name','description','color']

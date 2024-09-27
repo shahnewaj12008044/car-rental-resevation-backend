@@ -1,17 +1,23 @@
+import QueryBuilder from "../../Builder/QueryBuilder";
 import AppError from "../../Error/AppError";
+import { CarSearchableFields } from "./car.constants";
 import { TCar } from "./car.interface";
 import { Car } from "./car.model";
 import httpStatus from 'http-status-codes';
 
 
 const createCarIntoDB = async (payload: TCar) => {
+  
   const result = await Car.create(payload);
   return result;
 };
 
-const getAllCarsFromDB = async() =>{
-  const result = await Car.find();
+const getAllCarsFromDB = async(query:Record<string,unknown>) =>{
+  const carQuery = new QueryBuilder(Car.find(),query).search(CarSearchableFields).filter().sort().paginate()
+
+  const result = carQuery.modelQuery;
   return result;
+  
 }
 
 const getSingleCarFromDB = async(id:string) =>{
