@@ -1,4 +1,5 @@
-export function convertTo24HrsFormat(time12h ) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function convertTo24HrsFormat(time12h : any) {
     const [time, modifier] = time12h.split(' '); // Split into time and AM/PM
     let [hours, minutes] = time.split(':'); // Split hours and minutes
   
