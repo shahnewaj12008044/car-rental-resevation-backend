@@ -9,6 +9,8 @@ export type TUser = {
     password: string;
     phone:string;
     address:string;
+    status:'active'|'blocked';
+    isDeleted:boolean;
 }
 
 export type TRole = keyof typeof ROLE_OBJ;

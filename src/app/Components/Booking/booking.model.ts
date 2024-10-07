@@ -3,24 +3,76 @@ import { TBooking } from "./booking.interface";
 
 const bookingSchema = new Schema<TBooking>(
   {
-    date: { type: String, required: true },
+    date: {
+      type: String,
+      required: true,
+    },
+    startTime: {
+      type: String,
+    },
+    endTime: {
+      type: String,
+      default: null,
+    },
     user: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
     car: {
       type: Schema.Types.ObjectId,
-      required: [true, "Car is required"],
-      unique: true,
-      ref: "Car",
+      ref: 'Car',
     },
-    startTime: { type: String, required: true },
-    endTime: { type: String, default: null },
-    totalCost: { type: Number, default: 0 },
-  },
-  { timestamps: true }
-);
 
+    totalCost: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    isBooked: {
+      type: String,
+      enum: ['pending', 'approved', 'cancelled'],
+      default: 'pending',
+      required: true,
+    },
+    payment: {
+      type: String,
+      enum: ['pending', 'paid'],
+      default:"pending",
+    },
+    gps: {
+      type: Boolean,
+      default: false,
+    },
+    childSeat: {
+      type: Boolean,
+      default: false,
+    },
+    drivingLicense: {
+      type: String,
+    },
+    nidOrPassport: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    basicInsurance: {
+      type: Boolean,
+      default: false,
+    },
+    premiumInsurance: {
+      type: Boolean,
+      default: false,
+    },
+    fullInsurance: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
 
 

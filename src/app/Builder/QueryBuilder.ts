@@ -34,14 +34,15 @@ class QueryBuilder<T> {
 
     // Apply minPrice and maxPrice filters
     if (queryObj.minPrice || queryObj.maxPrice) {
+      // console.log(queryObj)
     
-      queryObj.price = {} as { $gte?: number; $lte?: number };
+      queryObj.pricePerHour = {} as { $gte?: number; $lte?: number };
       if (queryObj.minPrice) {
-        queryObj.price.$gte = parseFloat(queryObj.minPrice as string);
+        queryObj.pricePerHour.$gte = parseFloat(queryObj.minPrice as string);
         delete queryObj.minPrice;
       }
       if (queryObj.maxPrice) {
-        queryObj.price.$lte = parseFloat(queryObj.maxPrice as string);
+        queryObj.pricePerHour.$lte = parseFloat(queryObj.maxPrice as string);
         delete queryObj.maxPrice;
       }
     
@@ -60,7 +61,7 @@ class QueryBuilder<T> {
   }
   paginate() {
     const page = Number(this?.query?.page) || 1;
-    const limit = Number(this?.query?.limit) || 10;
+    const limit = Number(this?.query?.limit) ;
     const skip = (page - 1) * limit;
     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
     return this;

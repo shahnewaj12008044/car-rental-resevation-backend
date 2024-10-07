@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
-import { Role } from "./user.constant";
+import { Role, Status } from "./user.constant";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
@@ -30,6 +30,15 @@ export const userSchema = new Schema<TUser>(
     address: {
       type: String,
     },
+    isDeleted:{
+      type:Boolean,
+      default:false,
+    },
+    status:{
+      type:String,
+      enum:Status,
+      default:'active'
+    }
   },
   { timestamps: true }
 );
