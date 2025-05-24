@@ -1,7 +1,14 @@
-# Car Rental Reservation System
+![image](https://github.com/user-attachments/assets/4c3e7d06-2268-4646-b9ef-ebb77fa605d6)# Car Rental Reservation System
 
 ## Assignment Name: Car Rental Reservation System Backend
 
+## credentials:
+```
+{
+  "email": "admin@example.com",
+  "password": "123456"
+}
+```
 
 
 
